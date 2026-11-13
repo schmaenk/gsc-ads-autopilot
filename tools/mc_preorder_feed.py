@@ -73,7 +73,7 @@ def parse_date(value: str | None) -> datetime.date | None:
         return None
 
 
-def build_rows(variants: list[dict], today: datetime.date, horizon: int,
+def build_rows(variants: list[dict], today: datetime.date, horizon: int, *,
                skip_within: int) -> tuple[list[dict], list[dict]]:
     rows, overdue = [], []
     for v in variants:
@@ -110,7 +110,7 @@ def main() -> None:
     shop, token = shopify_token()
     variants = fetch_variants(shop, token)
     today = datetime.datetime.now(ZoneInfo("Europe/Berlin")).date()
-    rows, overdue = build_rows(variants, today, args.horizon, args.skip_within)
+    rows, overdue = build_rows(variants, today, args.horizon, skip_within=args.skip_within)
 
     with open(args.output, "w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS, extrasaction="ignore")

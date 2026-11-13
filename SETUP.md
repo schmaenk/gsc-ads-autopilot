@@ -600,3 +600,21 @@ eine Handvoll in vier Wochen, dann nachziehen.
 - keine Begriffe bebuchen, die organisch in den Top 3 stehen (Regel R3)
 - keine Conversion-basierten Gebotsentscheidungen, solange die
   Attributionslücke offen ist
+
+## Vorbestellungen im Merchant Center (seit 13.11.2026)
+
+Die Shopify-Google-App meldet Vorbestell-Varianten als „Auf Lager“. Deshalb läuft ein eigener Zusatzfeed.
+
+- **Was er setzt:** `availability=preorder` und `availability_date` aus dem Metafeld `custom.wieder_verfuegbar_ab`. Bei einem Termin, der mehr als 21 Tage entfernt ist, zusätzlich `custom_label_1=vorbestellung`. Das Label ist vorerst nur zur Beobachtung da, es gibt keinen Ausschluss in den Listing-Gruppen.
+- **Ablauf:** Windows-Aufgabe **„biberna MC Vorbestellung“**, täglich 05:30 → `tools/run_preorder_sync.cmd` → `tools/mc_preorder_sync.py`.
+  - Liest die Varianten aus Shopify (Admin-GraphQL, Zugang wie beim Bestandswächter).
+  - Schreibt `tools/out/biberna_vorbestellung_sftp.txt`.
+  - Lädt die Datei per SFTP auf `partnerupload.google.com:19321` hoch.
+- **Merchant-Center-Quelle:** `biberna_vorbestellung_sftp.txt` (joinFeedId 10796103004), Feedlabel EUR_111841149259 (DE).
+- **AT** hat noch keine Vorbestell-Quelle.
+- **Alte manuelle Quelle** `biberna_vorbestellung.txt` (10796098489): mit einer Platzhalter-Zeile stillgelegt, setzt nichts mehr. Löschen geht erst, wenn ihre Attributregeln in der DE-Primärquelle entfernt sind.
+- **Zugang:** `MC_SFTP_USER` / `MC_SFTP_PASSWORD` in `.env`. Die Datei ist nicht im Repo.
+- **Protokoll:** `tools/out/mc_preorder_sync.log`
+- **Test:**
+  - `python tools/mc_preorder_sync.py --check` prüft nur die SFTP-Verbindung.
+  - `python tools/mc_preorder_sync.py --dry-run` erzeugt die Datei ohne Upload.
