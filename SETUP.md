@@ -606,7 +606,7 @@ eine Handvoll in vier Wochen, dann nachziehen.
 Die Shopify-Google-App meldet Vorbestell-Varianten als „Auf Lager“. Deshalb läuft ein eigener Zusatzfeed.
 
 - **Was er setzt:** `availability=preorder` und `availability_date` aus dem Metafeld `custom.wieder_verfuegbar_ab`. Bei einem Termin, der mehr als 21 Tage entfernt ist, zusätzlich `custom_label_1=vorbestellung`. Das Label ist vorerst nur zur Beobachtung da, es gibt keinen Ausschluss in den Listing-Gruppen.
-- **Ablauf:** Windows-Aufgabe **„biberna MC Vorbestellung“**, täglich 05:30 → `tools/run_preorder_sync.cmd` → `tools/mc_preorder_sync.py`.
+- **Ablauf:** Windows-Aufgabe **„biberna MC Vorbestellung“**, täglich 08:30; verpasste Läufe werden nachgeholt, sobald der Rechner läuft → `tools/run_preorder_sync.cmd` → `tools/mc_preorder_sync.py`.
   - Liest die Varianten aus Shopify (Admin-GraphQL, Zugang wie beim Bestandswächter).
   - Schreibt `tools/out/biberna_vorbestellung_sftp.txt`.
   - Lädt die Datei per SFTP auf `partnerupload.google.com:19321` hoch.
