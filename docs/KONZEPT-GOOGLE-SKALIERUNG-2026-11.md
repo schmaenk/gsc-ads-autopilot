@@ -152,6 +152,9 @@ Messgröße je Stufe (immer 7 abgeschlossene Tage + 3 Tage Nachlauf, Google-Zäh
 
 ## 6. Sofortmaßnahmen diese Woche (jede einzeln per „Go“)
 
+> **Aktualisierung 14.11.2026:** Der Nutzer hat am 10.–13.11. selbst geändert (Brand 100 → 200 €, PMAX ohne Shopping auf Conversion-Wert maximieren + 150 €, PMax-1 220 → 100 €). Wirkung und die daraus angepasste Sofortliste (S0 Identitätsbestätigung bis 12.12., S2e jetzt 150 → 50 €, S3 verschärft, S8 Stufe 1 verschoben auf frühestens 23.11., S9 Brand 200 → 150 €) stehen in `BERICHT-GOOGLE-AENDERUNGEN-2026-11-14.md`. Die Tabelle unten ist der Stand vom 10.11.
+
+
 | # | Kampagne | Änderung | Erwarteter Effekt | Risiko | Beleg nach Umsetzung |
 |---|---|---|---|---|---|
 | S1 | PMax \| Biber \| DE | Negativ-Keyword-Liste `Brand Carve-Out` anhängen | ≈ 160 €/Woche Markenklicks wandern in Brand (CPA 14 € statt 41 €); Biber-ROAS sinkt optisch um 10–15 %, Konto-DB steigt | Google-Conversions der Biber-Kampagne fallen um ≈ 10/Woche; keine Lernphase | Screenshot Kampagneneinstellungen → Ausschlüsse; Suchbegriffe nach 7 Tagen ohne „biberna“ |

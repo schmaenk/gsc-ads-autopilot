@@ -618,3 +618,16 @@ Die Shopify-Google-App meldet Vorbestell-Varianten als „Auf Lager“. Deshalb 
 - **Test:**
   - `python tools/mc_preorder_sync.py --check` prüft nur die SFTP-Verbindung.
   - `python tools/mc_preorder_sync.py --dry-run` erzeugt die Datei ohne Upload.
+
+## Zusatzfeed v5: Spannbettlaken-Titel (15.11.2026)
+
+- **Warum:** Search Console, 28 Tage. „spannbettlaken“ hatte 28.030 Impressionen, „spannbetttuch“ nur 4.760. Gut die Hälfte der Suchen enthält eine Größe.
+- **Werkzeug:** `tools/mc_laken_titles.py` schreibt alle Spannbetttuch-Varianten nach dem Muster `<Typ> Spannbettlaken <Größe> <Farbe>[ – bis X cm Steghöhe] – <Marke> <Qualität>`.
+  - Die Steghöhe kommt nur aus dem Produkttext. Belegt sind Feinjersey 22 cm und Castell Jersey-Stretch 25 cm.
+  - Melange-Flanell 0841380 heißt „Biber Flanell …“ (Shop-Tag „Qualität: Biber“). Vorher stand dort fälschlich „Feinbiber“.
+  - `custom_label_0` bleibt unverändert.
+- **Ergebnis:** 557 Titel geändert, 5 Varianten neu.
+- **Hochgeladen** am 15.11. um 17:55 (DE, joinFeedId 10712320006) und 17:57 (AT, 10788956427).
+  - DE: 1.852 von 1.870 Zeilen zugeordnet.
+  - Die 18 Zeilen „Angebot existiert nicht“ sind Altartikel.
+- **Stand der Datei:** `tools/biberna_zusatzfeed_v5_2026-11-15.csv`. Neue Basis für künftige Feed-Änderungen.
