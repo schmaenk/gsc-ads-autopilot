@@ -631,3 +631,15 @@ Die Shopify-Google-App meldet Vorbestell-Varianten als „Auf Lager“. Deshalb 
   - DE: 1.852 von 1.870 Zeilen zugeordnet.
   - Die 18 Zeilen „Angebot existiert nicht“ sind Altartikel.
 - **Stand der Datei:** `tools/biberna_zusatzfeed_v5_2026-11-15.csv`. Neue Basis für künftige Feed-Änderungen.
+
+## Shop: Spannbetttuch → Spannbettlaken (15.11.2026)
+
+- **Umbenannt:** 13 Produkte (Produkttyp Spannbetttuch), Produkttitel und vorhandene SEO-Titel.
+  - Skript: `tools/shop_laken_rename.py`
+  - Protokoll mit Vorher/Nachher: `tools/shop_laken_rename_2026-11-15.json`
+  - Rückweg: `--revert`
+- **Unverändert:** Handle/URL, Produkttyp (About You, Kollektionsregeln), Beschreibungen. Neuer Tag „Spannbetttuch“ für die Shop-Suche.
+- **Live geprüft:**
+  - Seitentitel und H1 zeigen „Spannbettlaken“, die URLs liefern 200.
+  - Die Kollektion spannbettlaken zeigt weiter 13 Produkte.
+  - Die Shop-Suche findet das alte und das neue Wort.
