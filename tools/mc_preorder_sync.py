@@ -4,8 +4,8 @@ python tools/mc_preorder_sync.py [--dry-run] [--check]
 
 1. Holt die Vorbestell-Varianten aus Shopify (Logik aus mc_preorder_feed.py).
 2. Schreibt sie tabulatorgetrennt nach tools/out/<REMOTE_NAME>.
-3. Laedt die Datei per SFTP auf partnerupload.google.com hoch. Das Merchant Center
-   verarbeitet sie dann als Zusatzquelle mit genau diesem Dateinamen.
+3. Laedt die Datei per SFTP auf partnerupload.google.com hoch, einmal je Feedlabel
+   (REMOTE_NAMES). Das Merchant Center verarbeitet je Dateinamen eine Zusatzquelle.
 
 Weil die Datei jeden Morgen neu entsteht, bleiben auch Termine der naechsten Tage
 drin (--skip-within 0): Kommt Ware an, ist der Bestand > 0 und die Zeile faellt
@@ -35,6 +35,18 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "tools" / "out"
 ENV_PATH = ROOT / ".env"
 REMOTE_NAME = "biberna_vorbestellung_sftp.txt"
+# Ein Zusatzfeed haengt im Merchant Center an genau einem Feedlabel. Dieselbe Datei
+# wird deshalb unter einem Namen je Feedlabel hochgeladen (je eine SFTP-Zusatzquelle im MC).
+REMOTE_NAMES = {
+    "EUR_111841149259": REMOTE_NAME,                        # DE
+    "EUR_114747670859": "biberna_vorbestellung_sftp_AT.txt",
+    "CHF_114747507019": "biberna_vorbestellung_sftp_CH.txt",
+    "EUR_118086959435": "biberna_vorbestellung_sftp_NL.txt",
+    "EUR_118093807947": "biberna_vorbestellung_sftp_BE.txt",     # BE nl
+    "EUR_118093807947 fr": "biberna_vorbestellung_sftp_BE_fr.txt",  # BE fr (eigene Quelle, eigener Dateiname)
+    "EUR_118530638155": "biberna_vorbestellung_sftp_FR.txt",
+    "USD_117802074443": "biberna_vorbestellung_sftp_US.txt",
+}
 SFTP_HOST = "partnerupload.google.com"
 SFTP_PORT = 19321
 HORIZON_DAYS = 21
@@ -91,9 +103,9 @@ def build_file() -> Path:
 def upload(path: Path) -> None:
     transport, sftp = open_sftp()
     try:
-        sftp.put(str(path), REMOTE_NAME)
-        size = sftp.stat(REMOTE_NAME).st_size
-        LOG.info("Hochgeladen: %s (%d Bytes)", REMOTE_NAME, size)
+        for label, remote in REMOTE_NAMES.items():
+            sftp.put(str(path), remote)
+            LOG.info("Hochgeladen: %s -> %s (%d Bytes)", label, remote, sftp.stat(remote).st_size)
     finally:
         sftp.close()
         transport.close()

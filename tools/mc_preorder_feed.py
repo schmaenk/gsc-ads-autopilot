@@ -52,6 +52,7 @@ query($cursor: String) {
 }
 """
 FIELDS = ["id", "availability", "availability_date", "custom_label_1"]
+PUFFER_TAGE = 7  # Theme rechnet Wareneingang + 7 Tage (snippets/biberna-vorbestellung.liquid)
 
 
 def fetch_variants(shop: str, token: str) -> list[dict]:
@@ -91,7 +92,8 @@ def build_rows(variants: list[dict], today: datetime.date, horizon: int, *,
         rows.append({
             "id": feed_id,
             "availability": "preorder",
-            "availability_date": f"{due.isoformat()}T08:00+01:00",
+            # Liefertermin wie im Shop-Theme: Wareneingang + PUFFER_TAGE
+            "availability_date": f"{(due + datetime.timedelta(days=PUFFER_TAGE)).isoformat()}T08:00+01:00",
             "custom_label_1": "vorbestellung" if far else "",
             "_sku": v["sku"],
             "_title": v["product"]["title"],
