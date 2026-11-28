@@ -46,6 +46,19 @@ REMOTE_NAMES = {
     "EUR_118093807947 fr": "biberna_vorbestellung_sftp_BE_fr.txt",  # BE fr (eigene Quelle, eigener Dateiname)
     "EUR_118530638155": "biberna_vorbestellung_sftp_FR.txt",
     "USD_117802074443": "biberna_vorbestellung_sftp_US.txt",
+    # Welle 2 + 3 (28.11.2026): Quellen im MC je Feedlabel, Sprache wie Primaerfeed
+    "EUR_118568157515": "biberna_vorbestellung_sftp_IE.txt",
+    "CZK_118568190283": "biberna_vorbestellung_sftp_CZ.txt",
+    "PLN_118568223051": "biberna_vorbestellung_sftp_PL.txt",
+    "SEK_118568255819": "biberna_vorbestellung_sftp_SE.txt",
+    "DKK_118568288587": "biberna_vorbestellung_sftp_DK.txt",
+    "EUR_118591193419": "biberna_vorbestellung_sftp_FI.txt",
+    "EUR_118591226187": "biberna_vorbestellung_sftp_ES.txt",
+    "EUR_118591258955": "biberna_vorbestellung_sftp_IT.txt",
+    "EUR_118591291723": "biberna_vorbestellung_sftp_PT.txt",
+    "HUF_118591324491": "biberna_vorbestellung_sftp_HU.txt",
+    "EUR_118591390027": "biberna_vorbestellung_sftp_HR.txt",
+    # SI: erst eintragen, wenn der Primaerfeed im MC existiert
 }
 SFTP_HOST = "partnerupload.google.com"
 SFTP_PORT = 19321
